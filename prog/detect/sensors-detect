@@ -2746,7 +2746,7 @@ sub isa_read_i5d6
 # AUTODETECTION #
 #################
 
-use vars qw($dev_i2c $sysfs_root $systemd_systemctl $systemd_system_dir);
+use vars qw($dev_i2c $sysfs_root $systemd_is_booted $systemd_systemctl $systemd_system_dir);
 
 sub initialize_conf
 {
@@ -2820,6 +2820,10 @@ sub initialize_conf
 	} elsif (-d "/lib/systemd/system") {
 		$systemd_system_dir = "/lib/systemd/system";
 	}
+
+	# Check whether the system was booted using systemd.
+	# See: man sd_booted
+	$systemd_is_booted = -d '/run/systemd/system';
 }
 
 # [0] -> VERSION
